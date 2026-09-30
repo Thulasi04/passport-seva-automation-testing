@@ -6,7 +6,6 @@ from helpers import helper_for_pages as hp
 
 @pytest.mark.appointment
 def test_open_appointment_availability_page(page: Page):
-    """Verify Appointment Availability page opens with correct heading."""
     apt = AppointmentPage(page)
     apt.open_page()
     heading = apt.get_heading()
@@ -15,7 +14,6 @@ def test_open_appointment_availability_page(page: Page):
 
 @pytest.mark.appointment
 def test_select_passport_office_dropdown(page: Page):
-    """Verify selecting a Regional Passport Office from the dropdown."""
     apt = AppointmentPage(page)
     apt.open_page()
     apt.select_passport_office("Chennai")
@@ -25,7 +23,6 @@ def test_select_passport_office_dropdown(page: Page):
 
 @pytest.mark.appointment
 def test_enter_captcha_input(page: Page):
-    """Verify applicant can enter captcha code into the captcha field."""
     apt = AppointmentPage(page)
     apt.open_page()
     apt.enter_captcha("AB12CD")
@@ -35,7 +32,6 @@ def test_enter_captcha_input(page: Page):
 
 @pytest.mark.appointment
 def test_clear_appointment_form(page: Page):
-    """Verify Clear button resets entered fields."""
     apt = AppointmentPage(page)
     apt.open_page()
     apt.enter_captcha("TEST1234")
@@ -46,7 +42,6 @@ def test_clear_appointment_form(page: Page):
 
 @pytest.mark.appointment
 def test_applicants_note_visibility(page: Page):
-    """Verify applicant instructions note is displayed on the page."""
     apt = AppointmentPage(page)
     apt.open_page()
     is_visible = apt.is_note_for_applicants_visible()

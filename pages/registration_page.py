@@ -8,18 +8,15 @@ class RegistrationPage:
         self.page = page
 
     def open_page(self):
-        """Navigate directly to the User Registration page."""
         self.page.goto("https://services1.passportindia.gov.in/forms/registration",wait_until="domcontentloaded",timeout=30000,)
         self.page.wait_for_timeout(1500)
 
     def get_heading(self) -> str:
-        """Get the User Registration page heading."""
         heading = self.page.locator(locate.PAGE_HEADING).first
         heading.wait_for(state="visible", timeout=10000)
         return (heading.text_content() or "").strip()
 
     def select_office_type(self, office_type: str = "passport_office"):
-        """Select CPV Delhi or Passport Office radio button."""
         if office_type.lower() == "cpv":
             self.page.locator(locate.RADIO_CPV_DELHI).first.click()
         else:
@@ -27,27 +24,22 @@ class RegistrationPage:
         self.page.wait_for_timeout(300)
 
     def enter_full_name(self, full_name: str):
-        """Enter applicant full name."""
         input_el = self.page.locator(locate.INPUT_FULL_NAME).first
         input_el.wait_for(state="visible", timeout=10000)
         input_el.fill(full_name)
 
     def get_full_name(self) -> str:
-        """Get value of full name field."""
         return self.page.locator(locate.INPUT_FULL_NAME).first.input_value()
 
     def enter_email(self, email: str):
-        """Enter email address."""
         input_el = self.page.locator(locate.INPUT_EMAIL).first
         input_el.wait_for(state="visible", timeout=10000)
         input_el.fill(email)
 
     def get_email(self) -> str:
-        """Get value of email field."""
         return self.page.locator(locate.INPUT_EMAIL).first.input_value()
 
     def select_same_login_id(self, is_same: bool = True):
-        """Select Yes or No for 'Do you want your Login Id to be same as E-mail Id?'."""
         if is_same:
             self.page.locator(locate.RADIO_SAME_LOGIN_ID_YES).first.click()
         else:
@@ -55,43 +47,36 @@ class RegistrationPage:
         self.page.wait_for_timeout(300)
 
     def enter_login_id(self, login_id: str):
-        """Enter customized Login ID."""
         input_el = self.page.locator(locate.INPUT_LOGIN_ID).first
         input_el.wait_for(state="visible", timeout=10000)
         input_el.fill(login_id)
 
     def get_login_id(self) -> str:
-        """Get value of Login ID field."""
         return self.page.locator(locate.INPUT_LOGIN_ID).first.input_value()
 
     def enter_password(self, password: str):
-        """Enter registration password."""
         input_el = self.page.locator(locate.INPUT_PASSWORD).first
         input_el.wait_for(state="visible", timeout=10000)
         input_el.fill(password)
 
     def enter_captcha(self, captcha_text: str):
-        """Enter captcha characters."""
         input_el = self.page.locator(locate.INPUT_CAPTCHA).first
         input_el.wait_for(state="visible", timeout=10000)
         input_el.fill(captcha_text)
 
     def click_clear(self):
-        """Click on the Clear form button."""
         btn = self.page.locator(locate.CLEAR_BUTTON).last
         btn.wait_for(state="visible", timeout=10000)
         btn.click()
         self.page.wait_for_timeout(500)
 
     def click_sign_up(self):
-        """Click on the Sign Up button."""
         btn = self.page.locator(locate.SIGN_UP_BUTTON).last
         btn.wait_for(state="visible", timeout=10000)
         btn.click()
         self.page.wait_for_timeout(1000)
 
     def click_sign_in(self):
-        """Click on the Sign In link to navigate to Login page."""
         link = self.page.locator(locate.SIGN_IN_LINK).last
         link.wait_for(state="visible", timeout=10000)
         link.click()

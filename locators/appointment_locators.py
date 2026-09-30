@@ -1,5 +1,4 @@
 # Appointment Availability Page Locators
-
 PAGE_HEADING = 'text="Check Appointment Availability"'
 BREADCRUMB_HOME = 'a:has-text("Home")'
 BREADCRUMB_SERVICES = 'text="Services"'

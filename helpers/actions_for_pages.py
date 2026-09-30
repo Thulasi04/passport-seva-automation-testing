@@ -1,31 +1,25 @@
 from playwright.sync_api import Page
 
-
 def click_action(page: Page, selector: str):
-    """Click on the locator matching the selector."""
     locator = page.locator(selector).first
     locator.wait_for(state="visible", timeout=10000)
     locator.click()
 
 
 def type_action(page: Page, selector: str, value: str):
-    """Fill input field with value."""
     locator = page.locator(selector).first
     locator.wait_for(state="visible", timeout=10000)
     locator.fill(value)
 
 
 def get_text_action(page: Page, selector: str) -> str:
-    """Retrieve text content of the element."""
     locator = page.locator(selector).first
     locator.wait_for(state="visible", timeout=10000)
     return (locator.text_content() or "").strip()
 
 
 def get_title_action(page: Page) -> str:
-    """Retrieve the current page title."""
     return page.title().strip()
-
 
 def select_dropdown_action(page: Page, selector: str, value_or_label: str):
     """Select option from a standard HTML select element by label or value."""
@@ -38,7 +32,6 @@ def select_dropdown_action(page: Page, selector: str, value_or_label: str):
 
 
 def is_visible_action(page: Page, selector: str, timeout: int = 5000) -> bool:
-    """Check if an element is visible on the page."""
     try:
         locator = page.locator(selector).first
         return locator.is_visible(timeout=timeout)
@@ -47,14 +40,12 @@ def is_visible_action(page: Page, selector: str, timeout: int = 5000) -> bool:
 
 
 def get_input_value_action(page: Page, selector: str) -> str:
-    """Get the current value of an input element."""
     locator = page.locator(selector).first
     locator.wait_for(state="attached", timeout=10000)
     return locator.input_value()
 
 
 def clear_input_action(page: Page, selector: str):
-    """Clear an input field."""
     locator = page.locator(selector).first
     locator.wait_for(state="visible", timeout=10000)
     locator.fill("")

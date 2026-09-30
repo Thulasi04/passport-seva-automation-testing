@@ -14,7 +14,6 @@ def test_open_login_page(page: Page):
 
 @pytest.mark.login
 def test_login_attention_notice_displayed(page: Page):
-    """Verify Attention notice is visible to user before logging in."""
     login = LoginPage(page)
     login.open_page()
     is_visible = login.is_attention_notice_visible()
@@ -23,7 +22,6 @@ def test_login_attention_notice_displayed(page: Page):
 
 @pytest.mark.login
 def test_enter_login_id_input(page: Page):
-    """Verify applicant can enter Login ID into the outlined input."""
     login = LoginPage(page)
     login.open_page()
     login.enter_login_id("testuser_psp2026")
@@ -33,7 +31,6 @@ def test_enter_login_id_input(page: Page):
 
 @pytest.mark.login
 def test_navigate_to_register_from_login(page: Page):
-    """Verify 'Register here' link redirects to registration page."""
     login = LoginPage(page)
     login.open_page()
     login.click_register_here()

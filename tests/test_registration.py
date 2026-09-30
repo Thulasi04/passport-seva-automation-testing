@@ -6,7 +6,6 @@ from helpers import helper_for_pages as hp
 
 @pytest.mark.registration
 def test_open_registration_page(page: Page):
-    """Verify Registration page loads with expected title and heading."""
     reg = RegistrationPage(page)
     reg.open_page()
     heading = reg.get_heading()
@@ -15,7 +14,6 @@ def test_open_registration_page(page: Page):
 
 @pytest.mark.registration
 def test_select_office_type_radio(page: Page):
-    """Verify selecting CPV Delhi vs Passport Office radio options."""
     reg = RegistrationPage(page)
     reg.open_page()
     reg.select_office_type("cpv")
@@ -24,7 +22,6 @@ def test_select_office_type_radio(page: Page):
 
 @pytest.mark.registration
 def test_fill_registration_form_fields(page: Page):
-    """Verify filling registration input fields."""
     reg = RegistrationPage(page)
     reg.open_page()
     reg.enter_full_name("Rahul Sharma")
@@ -35,7 +32,6 @@ def test_fill_registration_form_fields(page: Page):
 
 @pytest.mark.registration
 def test_clear_registration_form(page: Page):
-    """Verify Clear button resets entered fields."""
     reg = RegistrationPage(page)
     reg.open_page()
     reg.enter_full_name("Anand Kumar")
@@ -46,7 +42,6 @@ def test_clear_registration_form(page: Page):
 
 @pytest.mark.registration
 def test_navigate_to_sign_in_from_registration(page: Page):
-    """Verify 'Sign In' link redirects to PreLogin page."""
     reg = RegistrationPage(page)
     reg.open_page()
     reg.click_sign_in()

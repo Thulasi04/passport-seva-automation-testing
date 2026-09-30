@@ -6,7 +6,6 @@ from helpers import helper_for_pages as hp
 
 @pytest.mark.tracking
 def test_open_track_status_page(page: Page):
-    """Verify Track Application Status page opens with correct heading."""
     track = TrackStatusPage(page)
     track.open_page()
     heading = track.get_heading()
@@ -15,7 +14,6 @@ def test_open_track_status_page(page: Page):
 
 @pytest.mark.tracking
 def test_select_application_type_passport(page: Page):
-    """Verify selecting Passport/PCC/IC/GEP application type."""
     track = TrackStatusPage(page)
     track.open_page()
     track.select_application_type("Passport/PCC/IC/GEP")
@@ -25,7 +23,6 @@ def test_select_application_type_passport(page: Page):
 
 @pytest.mark.tracking
 def test_enter_file_number(page: Page):
-    """Verify entering Passport file number."""
     track = TrackStatusPage(page)
     track.open_page()
     track.enter_file_number("CHN074589632124")
@@ -35,7 +32,6 @@ def test_enter_file_number(page: Page):
 
 @pytest.mark.tracking
 def test_enter_date_of_birth(page: Page):
-    """Verify entering applicant Date of Birth."""
     track = TrackStatusPage(page)
     track.open_page()
     track.enter_date_of_birth("1995-08-15")
@@ -45,7 +41,6 @@ def test_enter_date_of_birth(page: Page):
 
 @pytest.mark.tracking
 def test_clear_tracking_form(page: Page):
-    """Verify that Clear button resets input fields."""
     track = TrackStatusPage(page)
     track.open_page()
     track.enter_file_number("CHN123456789012")

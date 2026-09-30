@@ -6,7 +6,6 @@ from helpers import helper_for_pages as hp
 
 @pytest.mark.home
 def test_open_passport_seva_home(page: Page):
-    """Verify that Passport Seva homepage loads with expected title."""
     home = HomePage(page)
     home.open_website()
     title = home.get_title()
@@ -15,7 +14,6 @@ def test_open_passport_seva_home(page: Page):
 
 @pytest.mark.home
 def test_advisory_modal_dismissal(page: Page):
-    """Verify that the Tatkaal Advisory modal can be dismissed cleanly."""
     home = HomePage(page)
     home.open_website()
     if home.is_modal_visible():
@@ -25,7 +23,6 @@ def test_advisory_modal_dismissal(page: Page):
 
 @pytest.mark.home
 def test_national_call_center_info(page: Page):
-    """Verify National Call Center helpline number is displayed."""
     home = HomePage(page)
     home.open_website()
     call_center_text = home.get_call_center_text()
@@ -34,7 +31,6 @@ def test_national_call_center_info(page: Page):
 
 @pytest.mark.home
 def test_search_bar_expansion_and_input(page: Page):
-    """Verify that clicking the search icon expands search input and accepts text."""
     home = HomePage(page)
     home.open_website()
     home.enter_search_text("Tatkaal")
@@ -44,7 +40,6 @@ def test_search_bar_expansion_and_input(page: Page):
 
 @pytest.mark.home
 def test_pincode_locator_input(page: Page):
-    """Verify that applicant can enter PIN code to search nearest Seva Kendra."""
     home = HomePage(page)
     home.open_website()
     home.enter_pincode("600001")
@@ -54,7 +49,6 @@ def test_pincode_locator_input(page: Page):
 
 @pytest.mark.navigation
 def test_quick_link_check_appointment(page: Page):
-    """Verify Quick Link navigates to Check Appointment Availability page."""
     home = HomePage(page)
     home.open_website()
     home.click_check_appointment()
@@ -63,7 +57,6 @@ def test_quick_link_check_appointment(page: Page):
 
 @pytest.mark.navigation
 def test_quick_link_track_application(page: Page):
-    """Verify Quick Link navigates to Track Passport Application page."""
     home = HomePage(page)
     home.open_website()
     home.click_track_application()
@@ -72,7 +65,6 @@ def test_quick_link_track_application(page: Page):
 
 @pytest.mark.navigation
 def test_quick_link_apply_passport(page: Page):
-    """Verify Quick Link navigates to Apply For Passport page."""
     home = HomePage(page)
     home.open_website()
     home.click_apply_passport()
@@ -81,7 +73,6 @@ def test_quick_link_apply_passport(page: Page):
 
 @pytest.mark.accessibility
 def test_accessibility_font_resizing(page: Page):
-    """Verify font resizing accessibility controls."""
     home = HomePage(page)
     home.open_website()
     home.close_advisory_modal()
