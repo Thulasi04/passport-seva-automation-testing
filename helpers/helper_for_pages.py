@@ -38,8 +38,27 @@ def assert_visible(page: Page, selector: str, timeout: int = 5000):
     expect(locator).to_be_visible(timeout=timeout)
 
 
-def take_screenshot(page: Page, name: str, directory: str = "screenshots"):
-    os.makedirs(directory, exist_ok=True)
-    file_path = os.path.join(directory, f"{name}.png")
+def take_screenshot(
+    page: Page,
+    name: str,
+    status: str = "passed",
+    directory: str = "reports/screenshots",
+) -> str:
+    """Capture a screenshot and store it in status-based directories ('passed' / 'failed')."""
+    target_dir = os.path.join(directory, status)
+    os.makedirs(target_dir, exist_ok=True)
+    file_path = os.path.join(target_dir, f"{name}.png")
     page.screenshot(path=file_path, full_page=False)
+
+    # Sync to root screenshots/{status} directory as well
+    alt_dir = os.path.join("screenshots", status)
+    os.makedirs(alt_dir, exist_ok=True)
+    alt_path = os.path.join(alt_dir, f"{name}.png")
+    try:
+        import shutil
+        shutil.copyfile(file_path, alt_path)
+    except Exception:
+        pass
+
     return file_path
+

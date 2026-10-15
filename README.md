@@ -95,9 +95,17 @@ passport-seva-automation-testing/
 │   ├── registration_page.py       # Registration workflow interactions
 │   ├── services_page.py           # Services catalog interactions
 │   └── track_status_page.py       # Status tracking form interactions
+├── reports/
+│   ├── report.html                # Self-contained HTML test report
+│   └── screenshots/
+│       ├── passed/                # Screenshots of passed test runs
+│       └── failed/                # Screenshots captured upon test failure
+├── screenshots/
+│   ├── passed/                    # Baseline and passed test run screenshot archive
+│   └── failed/                    # Failure screenshots archive
 ├── tests/
 │   ├── __init__.py
-│   ├── conftest.py                # Pytest fixtures, failure screenshots & report hooks
+│   ├── conftest.py                # Pytest fixtures, screenshot hooks & report metadata
 │   ├── test_appointment.py       # Appointment availability tests (5 tests)
 │   ├── test_home.py              # Home layout & navigation tests (9 tests)
 │   ├── test_login.py             # Login & PreLogin flow tests (4 tests)
@@ -226,11 +234,11 @@ Generate an on-demand report:
 pytest --html=reports/report.html --self-contained-html
 ```
 
-### Automated Failure Screenshots
-Configured inside [`tests/conftest.py`](file:///Users/udayakumar/Desktop/passportseva/tests/conftest.py), whenever an assertion fails during test execution:
-1. Playwright immediately takes a full browser screenshot.
-2. The image is saved to `screenshots/failures/<test_name>.png`.
-3. The screenshot is automatically embedded directly into the HTML test report for rapid debugging.
+### Organized Screenshots (`passed` & `failed`)
+Configured inside [`tests/conftest.py`](file:///Users/udayakumar/Desktop/passportseva/tests/conftest.py), all test screenshots are automatically organized by execution outcome:
+- **Passed Test Screenshots**: Automatically stored in `reports/screenshots/passed/` and mirrored to `screenshots/passed/` (also accessible via convenience link `reports/passed/`).
+- **Failed Test Screenshots**: Automatically captured upon assertion failure and saved to `reports/screenshots/failed/` and `screenshots/failed/` (also accessible via `reports/failed/`).
+- **Direct HTML Report Integration**: Pytest hooks embed screenshots directly into the self-contained HTML report (`reports/report.html`) for fast visual triage and auditability.
 
 ---
 

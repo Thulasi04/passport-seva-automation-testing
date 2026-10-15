@@ -44,10 +44,10 @@ jobs:
           path: reports/report.html
           retention-days: 14
 
-      - name: Upload Failure Screenshots
-        if: failure()
+      - name: Upload Test Screenshots (Passed & Failed)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: failure-screenshots
-          path: screenshots/failures/
+          name: test-screenshots
+          path: screenshots/
           retention-days: 14

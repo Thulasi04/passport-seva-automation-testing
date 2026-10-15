@@ -44,7 +44,9 @@ coverage.xml
 # Test Reports and Screenshots generated during runs
 reports/
 test-results/
-screenshots/failures/
+screenshots/failed/*.png
+screenshots/passed/test_*.png
+!screenshots/failed/.gitkeep
 
 # IDE and Editor configurations
 .idea/
