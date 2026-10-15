@@ -2,13 +2,12 @@
 
 Includes:
 - Browser viewport and launch settings.
-- Automatic screenshot capture on test completion (categorized into 'passed' and 'failed' folders).
+- Automatic screenshot capture on test completion directly into reports/passed/ and reports/failed/.
 - Direct embedding of screenshots into self-contained Pytest HTML reports.
 - Custom metadata formatting for enterprise test reporting.
 """
 
 import os
-import shutil
 import pytest
 
 
@@ -24,7 +23,7 @@ def browser_context_args(browser_context_args):
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Capture screenshots for passed and failed tests into structured folders and attach to HTML report."""
+    """Capture screenshots for passed and failed tests into reports/passed and reports/failed, attaching to HTML report."""
     outcome = yield
     report = outcome.get_result()
     extra = getattr(report, "extra", [])
@@ -35,24 +34,13 @@ def pytest_runtest_makereport(item, call):
             status = "failed" if report.failed else "passed"
             file_name = f"{item.name}.png"
 
-            # Primary directories for reports and standalone screenshot archives
-            reports_screenshot_dir = os.path.join("reports", "screenshots", status)
-            root_screenshot_dir = os.path.join("screenshots", status)
-
-            os.makedirs(reports_screenshot_dir, exist_ok=True)
-            os.makedirs(root_screenshot_dir, exist_ok=True)
-
-            report_file_path = os.path.join(reports_screenshot_dir, file_name)
-            root_file_path = os.path.join(root_screenshot_dir, file_name)
+            # Directory: reports/passed or reports/failed
+            status_dir = os.path.join("reports", status)
+            os.makedirs(status_dir, exist_ok=True)
+            report_file_path = os.path.join(status_dir, file_name)
 
             try:
                 page.screenshot(path=report_file_path)
-                # Sync screenshot to screenshots/{status}/ as well
-                try:
-                    shutil.copyfile(report_file_path, root_file_path)
-                except Exception:
-                    pass
-
                 print(f"\n[Screenshot] Saved {status.upper()} screenshot -> {report_file_path}")
 
                 # Attach image to Pytest HTML report
@@ -77,4 +65,4 @@ def pytest_metadata(metadata):
     metadata["Design Pattern"] = "Page Object Model (POM)"
     metadata["Automation Tool"] = "Playwright (Python)"
     metadata["Author"] = "Thulasi (Passport Seva Automation)"
-    metadata["Screenshot Storage"] = "reports/screenshots/ (passed & failed)"
+    metadata["Screenshots"] = "reports/passed/ & reports/failed/"

@@ -42,11 +42,11 @@ coverage.xml
 *.log
 
 # Test Reports and Screenshots generated during runs
-reports/
+reports/*.html
+reports/failed/*.png
+reports/passed/test_*.png
+!reports/failed/.gitkeep
 test-results/
-screenshots/failed/*.png
-screenshots/passed/test_*.png
-!screenshots/failed/.gitkeep
 
 # IDE and Editor configurations
 .idea/

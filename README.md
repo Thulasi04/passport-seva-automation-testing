@@ -97,12 +97,8 @@ passport-seva-automation-testing/
 │   └── track_status_page.py       # Status tracking form interactions
 ├── reports/
 │   ├── report.html                # Self-contained HTML test report
-│   └── screenshots/
-│       ├── passed/                # Screenshots of passed test runs
-│       └── failed/                # Screenshots captured upon test failure
-├── screenshots/
-│   ├── passed/                    # Baseline and passed test run screenshot archive
-│   └── failed/                    # Failure screenshots archive
+│   ├── passed/                    # Screenshots of successful test executions & showcases
+│   └── failed/                    # Screenshots captured upon test failure (with .gitkeep)
 ├── tests/
 │   ├── __init__.py
 │   ├── conftest.py                # Pytest fixtures, screenshot hooks & report metadata
@@ -234,10 +230,11 @@ Generate an on-demand report:
 pytest --html=reports/report.html --self-contained-html
 ```
 
-### Organized Screenshots (`passed` & `failed`)
-Configured inside [`tests/conftest.py`](file:///Users/udayakumar/Desktop/passportseva/tests/conftest.py), all test screenshots are automatically organized by execution outcome:
-- **Passed Test Screenshots**: Automatically stored in `reports/screenshots/passed/` and mirrored to `screenshots/passed/` (also accessible via convenience link `reports/passed/`).
-- **Failed Test Screenshots**: Automatically captured upon assertion failure and saved to `reports/screenshots/failed/` and `screenshots/failed/` (also accessible via `reports/failed/`).
+### Unified Reports & Categorized Screenshots (`passed` & `failed`)
+All test artifacts and visual diagnostics are consolidated inside a single **[`reports/`](file:///Users/udayakumar/Desktop/passportseva/reports)** directory:
+- **`reports/report.html`**: Interactive standalone HTML report summarizing test execution outcomes and duration.
+- **`reports/passed/`**: Contains baseline showcase screenshots and screenshots automatically captured for every passing test.
+- **`reports/failed/`**: Contains full-browser screenshots captured immediately upon any assertion or timeout failure.
 - **Direct HTML Report Integration**: Pytest hooks embed screenshots directly into the self-contained HTML report (`reports/report.html`) for fast visual triage and auditability.
 
 ---
