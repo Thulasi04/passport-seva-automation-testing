@@ -1,8 +1,8 @@
 # Home Page Locators
 
 # Tatkaal Advisory Modal
-MODAL_DIALOG = '.modal-dialog, div[role="dialog"]'
-MODAL_CLOSE_BUTTON = 'button:has-text("✕"), button.btn-close, .modal button'
+MODAL_DIALOG = '.homePageModal, .modal-dialog, div[role="dialog"]'
+MODAL_CLOSE_BUTTON = '.homePageModal button.btn-close, button.btn-close, [aria-label="Close"], button:has-text("✕")'
 MODAL_TITLE = 'text="Tatkaal Advisory"'
 
 # Header & Branding

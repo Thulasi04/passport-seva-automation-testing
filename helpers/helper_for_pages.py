@@ -9,10 +9,18 @@ def open_website(page: Page, url: str = DEFAULT_BASE_URL):
 
 def dismiss_advisory_modal(page: Page):
     try:
-        close_btn = page.locator("button:has-text('✕'), button.btn-close, .modal button").first
+        close_btn = page.locator(".homePageModal button.btn-close, button.btn-close, [aria-label='Close'], button:has-text('✕')").first
         if close_btn.is_visible(timeout=3000):
             close_btn.click()
             page.wait_for_timeout(500)
+        page.evaluate("""() => {
+            document.querySelectorAll('.modal-backdrop, .modal.show, .homePageModal').forEach(el => {
+                if (el) {
+                    el.classList.remove('show');
+                    el.style.display = 'none';
+                }
+            });
+        }""")
     except Exception:
         pass
 

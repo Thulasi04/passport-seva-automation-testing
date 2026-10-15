@@ -24,6 +24,14 @@ class HomePage:
             if close_btn.is_visible(timeout=3000):
                 close_btn.click()
                 self.page.wait_for_timeout(500)
+            self.page.evaluate("""() => {
+                document.querySelectorAll('.modal-backdrop, .modal.show, .homePageModal').forEach(el => {
+                    if (el) {
+                        el.classList.remove('show');
+                        el.style.display = 'none';
+                    }
+                });
+            }""")
         except Exception:
             pass
 
