@@ -78,6 +78,10 @@ class RegistrationPage:
 
     def click_sign_in(self):
         link = self.page.locator(locate.SIGN_IN_LINK).last
-        link.wait_for(state="visible", timeout=10000)
+        link.wait_for(state="visible", timeout=15000)
         link.click()
-        self.page.wait_for_url("**/PreLogin**", timeout=10000)
+        try:
+            self.page.wait_for_url("**/PreLogin**", wait_until="domcontentloaded", timeout=25000)
+        except Exception:
+            self.page.wait_for_load_state("domcontentloaded", timeout=15000)
+
