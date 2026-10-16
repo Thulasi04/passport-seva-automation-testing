@@ -21,33 +21,43 @@ class HomePage:
     def close_advisory_modal(self):
         try:
             close_btn = self.page.locator(locate.MODAL_CLOSE_BUTTON).first
-            if close_btn.is_visible(timeout=3000):
-                close_btn.click()
-                self.page.wait_for_timeout(500)
+            if close_btn.is_visible(timeout=1500):
+                close_btn.click(force=True)
+                self.page.wait_for_timeout(300)
             self.page.evaluate("""() => {
-                document.querySelectorAll('.modal-backdrop, .modal.show, .homePageModal').forEach(el => {
+                document.querySelectorAll('.modal-backdrop, .modal, .homePageModal').forEach(el => {
                     if (el) {
                         el.classList.remove('show');
                         el.style.display = 'none';
+                        el.style.pointerEvents = 'none';
                     }
                 });
+                if (!document.getElementById('suppress-modals-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'suppress-modals-style';
+                    style.innerHTML = '.modal-backdrop, .homePageModal, .modal.show { display: none !important; pointer-events: none !important; }';
+                    document.head.appendChild(style);
+                }
             }""")
         except Exception:
             pass
 
-    def open_login(self):
+    def _safe_click(self, selector: str, timeout: int = 5000):
         self.close_advisory_modal()
-        login_btn = self.page.locator(locate.LOGIN_BUTTON).first
-        login_btn.wait_for(state="visible", timeout=10000)
-        login_btn.click()
+        locator = self.page.locator(selector).first
+        locator.scroll_into_view_if_needed()
+        try:
+            locator.click(timeout=timeout)
+        except Exception:
+            self.close_advisory_modal()
+            locator.click(force=True)
         self.page.wait_for_load_state("domcontentloaded")
 
+    def open_login(self):
+        self._safe_click(locate.LOGIN_BUTTON)
+
     def open_register(self):
-        self.close_advisory_modal()
-        reg_btn = self.page.locator(locate.REGISTER_BUTTON).first
-        reg_btn.wait_for(state="visible", timeout=10000)
-        reg_btn.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.REGISTER_BUTTON)
 
     def click_search_icon(self):
         self.close_advisory_modal()
@@ -78,60 +88,28 @@ class HomePage:
         return self.page.locator(locate.PIN_CODE_INPUT).first.input_value()
 
     def click_apply_passport(self):
-        self.close_advisory_modal()
-        link = self.page.locator(locate.QUICK_LINK_APPLY).first
-        link.scroll_into_view_if_needed()
-        link.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.QUICK_LINK_APPLY)
 
     def click_check_appointment(self):
-        self.close_advisory_modal()
-        link = self.page.locator(locate.QUICK_LINK_APPOINTMENT).first
-        link.scroll_into_view_if_needed()
-        link.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.QUICK_LINK_APPOINTMENT)
 
     def click_track_application(self):
-        self.close_advisory_modal()
-        link = self.page.locator(locate.QUICK_LINK_TRACK).first
-        link.scroll_into_view_if_needed()
-        link.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.QUICK_LINK_TRACK)
 
     def click_register_feedback(self):
-        self.close_advisory_modal()
-        link = self.page.locator(locate.QUICK_LINK_GRIEVANCE).first
-        link.scroll_into_view_if_needed()
-        link.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.QUICK_LINK_GRIEVANCE)
 
     def click_miscellaneous_services(self):
-        self.close_advisory_modal()
-        link = self.page.locator(locate.QUICK_LINK_MISCELLANEOUS).first
-        link.scroll_into_view_if_needed()
-        link.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.QUICK_LINK_MISCELLANEOUS)
 
     def click_ordinary_passport_service(self):
-        self.close_advisory_modal()
-        card = self.page.locator(locate.SERVICE_ORDINARY_PASSPORT).first
-        card.scroll_into_view_if_needed()
-        card.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.SERVICE_ORDINARY_PASSPORT)
 
     def click_tatkaal_service(self):
-        self.close_advisory_modal()
-        card = self.page.locator(locate.SERVICE_TATKAAL_PASSPORT).first
-        card.scroll_into_view_if_needed()
-        card.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.SERVICE_TATKAAL_PASSPORT)
 
     def click_pcc_service(self):
-        self.close_advisory_modal()
-        card = self.page.locator(locate.SERVICE_PCC).first
-        card.scroll_into_view_if_needed()
-        card.click()
-        self.page.wait_for_load_state("domcontentloaded")
+        self._safe_click(locate.SERVICE_PCC)
 
     def click_font_size(self, size_type: str = "normal"):
         if size_type == "decrease":
